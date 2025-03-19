@@ -4,26 +4,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: vinodapp
+  name: bankapp
 spec:
   replicas: 2
   revisionHistoryLimit: 1
   selector:
     matchLabels:
-      app: vinodapp
+      app: bankapp
   template:
     metadata:
       labels:
-        app: vinodapp
+        app: bankapp
     spec:
       containers:
-      - name: vinodapp
-        image: vinodkhathi/vinodapp:v4
+      - name: bankapp
+        image: vinodkhathi/bankapp:v4
         ports:
         - containerPort: 8080
         env:
         - name: SPRING_DATASOURCE_URL
-          value: jdbc:mysql://mysql-service:3306/vinodappdb?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+          value: jdbc:mysql://mysql-service:3306/bankappdb?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
         - name: SPRING_DATASOURCE_USERNAME
           value: root
         - name: SPRING_DATASOURCE_PASSWORD
@@ -33,11 +33,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: vinodapp-service
+  name: bankapp-service
 spec:
   type: LoadBalancer
   ports:
-  - port: 80
+  - port: 80z
     targetPort: 8080
   selector:
-    app: vinodapp
+    app: bankapp
